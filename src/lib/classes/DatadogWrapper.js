@@ -4,19 +4,19 @@ var DatadogAgent = require('node-dogstatsd').StatsD;
 var Log = require('log4js');
 
 
-module.exports = (Metric, configuration ) => function () {
+module.exports = (Metric ) => function () {
     var logger = Log.getLogger('DatadogWrapper');
 
     return class DatadogWrapper {
 
-        constructor(hostname, port) {
+        constructor(hostname, port, configuration) {
             this.extra_tags = new Map();
             this.path = [];
             this.metrics = [];
-
+            this.configuration = configuration;
             this.options = {'host': hostname, 'port': port};
             this.agent = new DatadogAgent(options.host, options.port);
-            this.metric_path = configuration.metric_path;
+            this.metric_path = this.configuration.metric_path;
         }
 
         // Returns path as string
@@ -63,7 +63,7 @@ module.exports = (Metric, configuration ) => function () {
         // Reads 'field_tags' from configuration, returning all that also exist on the given object
         get_matching_fields(obj) {
             var matched_tags = [];
-            var configured_tags = configuration.field_tags;
+            var configured_tags = this.configuration.field_tags;
             for (var tag in configured_tags) {
                 if (obj.hasOwnProperty(tag)) {
                     matched_tags.push(tag);
@@ -119,9 +119,7 @@ module.exports = (Metric, configuration ) => function () {
         // more_tags values override if keys preexist
         with_tags(more_tags) {
             var tags = {
-                'env': this.environment,
-                'host': this.host,
-                'target': this.target
+                'host': this.host
             };
 
             this.extra_tags.forEach(function (t, v) {

@@ -1,11 +1,12 @@
 "use strict";
 
+const mocha_key = "mocha";
 
-module.exports = (configuration) => function() {
+module.exports = (configuration, DatadogWrapper) => function() {
     var dd_config = configuration.datadog_agent;
     var metric_path = configuration.metric_path;
 
-    var datadog = new DatadogWrapper(dd_config.host,  dd_config.port);
+    var datadog = new DatadogWrapper(dd_config.host,  dd_config.port, configuration[mocha_key]);
 
     
     var export_results = function(mocha_output) {
@@ -17,14 +18,15 @@ module.exports = (configuration) => function() {
         });
 
         send_tests();
-    }
-    var parse = function(mocha_output) {
-        var stats = mocha_output.stats;
-        var passes = mocha_output.passes;
-        var failures = mocha_output.failures;
-        var pending = mocha_output.pending;
+    };
 
-        return {"stats":stats, "passed":passes, "failures":failures, "pending":pending}
+    var write = function(json) {
+        export_results(json);
+    };
+
+    var parse = function(mocha_output) {
+        // Do any transformation required.  It's already in the correct format
+        return mocha_output;
     };
 
     var parse_test = function(mocha_test, status) {
@@ -51,7 +53,7 @@ module.exports = (configuration) => function() {
 
     var send_tests = function(){
         datadog.send_metrics().flush_metrics().flush_json_buffer();
-    }
+    };
 
 
 
