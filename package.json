@@ -1,0 +1,32 @@
+{
+  "engines": {
+    "node": "0.12.x"
+  },
+  "name": "json2datadog",
+  "version": "0.0.1",
+  "private": true,
+  "description": "For injesting json encoded statistics, results and/or metrics then formatting and sending to datadog",
+  "main": "app.js",
+  "dependencies": {
+    "bluebird": "3.1.5",
+    "cli-table2": "^0.2.0",
+    "dotenv": "^1.2.0",
+    "log4js": "~0.6.22",
+    "majic": "0.0.38",
+    "node-dogstatsd": "^0.0.6"
+  },
+  "devDependencies": {
+    "mocha": "2.3.3",
+    "chai": "3.4.0",
+    "chai-as-promised": "5.2.0"
+  },
+  "scripts": {
+    "start": "./node_modules/majic/bin/majic"
+  },
+  "bin": {
+    "daemon": "./start_daemon"
+  },
+  "author": "Anthony P Dawson <anthonypdawson@gmail.com>",
+  "homepage": "https://github.com/anthonypdawson/json2datadog",
+  "license": "Refer to LICENSE.txt"
+}
