@@ -12,7 +12,7 @@
     "cli-table2": "^0.2.0",
     "dotenv": "^1.2.0",
     "log4js": "~0.6.22",
-    "majic": "0.0.38",
+    "majic": "^0.0.40",
     "node-dogstatsd": "^0.0.6"
   },
   "devDependencies": {

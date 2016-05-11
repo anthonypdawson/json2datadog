@@ -1,6 +1,6 @@
 "use strict";
 
- module.exports = function(node_dogstatsd, log4js) {
+ module.exports = function(Metric, node_dogstatsd, log4js) {
 
     var logger = log4js.getLogger("DatadogWrapper");
 

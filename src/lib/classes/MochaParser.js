@@ -1,11 +1,11 @@
 "use strict";
 
-const mocha_key = "mocha";
-module.exports = function(configuration, DatadogWrapper)  {
+module.exports = function (configuration, DatadogWrapper) {
 
     return class MochaParser {
+
         constructor() {
-            this.dd_config = configuration[mocha_key];
+            this.dd_config = configuration['mocha'];
             this.metric_path = this.dd_config.metric_path;
             this.datadog = new DatadogWrapper(configuration.datadog_agent.host, configuration.datadog_agent.port, this.dd_config);
             console.log("mocha_parser constructor complete");
@@ -60,4 +60,4 @@ module.exports = function(configuration, DatadogWrapper)  {
 
     }
 
-}
+};

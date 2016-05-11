@@ -2,6 +2,7 @@
 
 module.exports =  function() {
     return class Metric {
+
         constructor(metric_path, metric_type, metric_value, tags) {
             this.tags = {};
             this.path = metric_path;
@@ -10,9 +11,6 @@ module.exports =  function() {
             if (tags) this.tags = tags;
         }
 
-        get tags() {
-            return this.tags;
-        }
 
         add_tag(tagKey, tagValue) {
             this.tags[tagKey] = tagValue;

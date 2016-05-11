@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+path = require("path");
+
+var root = __dirname;
+var suffix = path.sep + "bin";
+if (root.indexOf(suffix, root.length - suffix.length) !== -1) {
+    root = root.substring(0, root.length - suffix.length);
+}
+
+require('majic').start({root:root, pkgroot: root, verbose: true});

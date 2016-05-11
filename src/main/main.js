@@ -31,6 +31,6 @@ module.exports = function(MochaParser) {
         mp.export_results(test_results);
     }
 
-     start();
+    return     start();
 
 };
